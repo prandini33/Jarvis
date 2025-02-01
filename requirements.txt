@@ -1,0 +1,11 @@
+flask
+vosk
+pyttsx3
+speechrecognition
+pyaudio
+spacy
+keyboard
+requests
+tqdm
+cffi
+websockets
