@@ -25,14 +25,13 @@ def execute_command(command):
         os.system("shutdown -h now")  # Linux
         # os.system("shutdown /s /t 0")  # Windows
 
-    elif "reinicia"r in command:
+    elif "reiniciar" in command:
         speak("Reiniciando o computador.")
         os.system("reboot")  # Linux
         # os.system("shutdown /r /t 0")  # Windows
 
-     elif "tocar música" in command:
+    elif "tocar musica" in command:
         speak("Tocando música.")
-        subprocess.run(["xdg-open", "/caminho/para/sua/música.mp3"])  # Ajuste o caminho para um arquivo local
 
     elif "pausar música" in command:
         speak("Pausando música.")
@@ -53,7 +52,6 @@ def execute_command(command):
     elif "diminuir volume" in command:
         speak("Diminuindo o volume.")
         keyboard.press_and_release("volume down")
-        
 
     elif "sair" in command:
         speak("Encerrando o assistente. Até logo!")
