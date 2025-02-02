@@ -42,3 +42,18 @@ stories:
     - local: "São Paulo"
     - data: "amanhã"
   - action: utter_exibir_previsao
+
+- story: abrir navegador
+  steps:
+  - intent: abrir_terminal
+  - action: action_abrir_navegador
+
+- story: desligar computador
+  steps:
+  - intent: cancelar
+  - action: action_desligar_computador
+
+- story: reiniciar computador
+  steps:
+  - intent: afirmar
+  - action: action_reiniciar_computador

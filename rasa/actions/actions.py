@@ -1,35 +1,22 @@
-# This files contains your custom actions which can be used to run
-# custom Python code.
-#
-# See this guide on how to implement these action:
-# https://rasa.com/docs/rasa/custom-actions
-
-
-# This is a simple example for a custom action which utters "Hello World!"
-
-# from typing import Any, Text, Dict, List
-#
-# from rasa_sdk import Action, Tracker
-# from rasa_sdk.executor import CollectingDispatcher
-#
-#
-# class ActionHelloWorld(Action):
-#
-#     def name(self) -> Text:
-#         return "action_hello_world"
-#
-#     def run(self, dispatcher: CollectingDispatcher,
-#             tracker: Tracker,
-#             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-#
-#         dispatcher.utter_message(text="Hello World!")
-#
-#         return []
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../src')))
 
 from typing import Any, Text, Dict, List
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
-import subprocess
+from commands import execute_command
+
+class ActionAbrirNavegador(Action):
+    def name(self) -> Text:
+        return "action_abrir_navegador"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        execute_command("navegador")
+        dispatcher.utter_message(text="Abrindo o navegador.")
+        return []
 
 class ActionAbrirTerminal(Action):
     def name(self) -> Text:
@@ -38,15 +25,30 @@ class ActionAbrirTerminal(Action):
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        execute_command("terminal")
+        dispatcher.utter_message(text="Abrindo o terminal.")
+        return []
 
-        # Lógica para abrir terminal
-        try:
-            subprocess.Popen(["x-terminal-emulator"])  # Linux
-            # subprocess.Popen(["wt"])  # Windows Terminal
-            dispatcher.utter_message(text="Terminal aberto com sucesso!")
-        except Exception as e:
-            dispatcher.utter_message(text="Desculpe, não consegui abrir o terminal.")
-        
+class ActionDesligarComputador(Action):
+    def name(self) -> Text:
+        return "action_desligar_computador"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        execute_command("desligar")
+        dispatcher.utter_message(text="Desligando o computador.")
+        return []
+
+class ActionReiniciarComputador(Action):
+    def name(self) -> Text:
+        return "action_reiniciar_computador"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        execute_command("reiniciar")
+        dispatcher.utter_message(text="Reiniciando o computador.")
         return []
 
 class ActionAjustarVolume(Action):
@@ -62,7 +64,6 @@ class ActionAjustarVolume(Action):
         dispatcher.utter_message(response="utter_volume_ajustado", volume=volume)
         return []
 
-# actions.py
 class ActionDefaultFallback(Action):
     def name(self) -> Text:
         return "action_default_fallback"

@@ -1,7 +1,22 @@
 import os
 import subprocess
 import webbrowser
-from text_to_speech import speak
+import keyboard  # Para controle de mídia
+from TTS.api import TTS
+import simpleaudio as sa
+
+# Inicializa Coqui TTS
+tts = TTS(model_name="tts_models/pt/cv/vits", progress_bar=False)
+
+def speak(text):
+    """ Converte texto em fala e reproduz """
+    output_file = "jarvis_voice.wav"
+    tts.tts_to_file(text=text, file_path=output_file)
+
+    # Reproduz áudio gerado
+    wave_obj = sa.WaveObject.from_wave_file(output_file)
+    play_obj = wave_obj.play()
+    play_obj.wait_done()
 
 def execute_command(command):
     """ Processa comandos reconhecidos e executa ações """
@@ -21,21 +36,22 @@ def execute_command(command):
         # subprocess.run(["notepad.exe"])  # Windows
 
     elif "desligar" in command:
-        speak("Desligando o computador.")
-        os.system("shutdown -h now")  # Linux
-        # os.system("shutdown /s /t 0")  # Windows
+        speak("Desligando o computador em 5 segundos.")
+        os.system("sleep 5 && shutdown -h now")  # Linux
+        # os.system("shutdown /s /t 5")  # Windows
 
     elif "reiniciar" in command:
-        speak("Reiniciando o computador.")
-        os.system("reboot")  # Linux
-        # os.system("shutdown /r /t 0")  # Windows
+        speak("Reiniciando o computador em 5 segundos.")
+        os.system("sleep 5 && reboot")  # Linux
+        # os.system("shutdown /r /t 5")  # Windows
 
-    elif "tocar musica" in command:
+    elif "tocar música" in command:
         speak("Tocando música.")
+        keyboard.press_and_release("play/pause media")
 
     elif "pausar música" in command:
         speak("Pausando música.")
-        keyboard.press_and_release("play/pause media")  # Emula tecla de mídia
+        keyboard.press_and_release("play/pause media")
 
     elif "próxima música" in command:
         speak("Pulando para a próxima música.")
@@ -45,17 +61,4 @@ def execute_command(command):
         speak("Voltando para a música anterior.")
         keyboard.press_and_release("previous track media")
 
-    elif "aumentar volume" in command:
-        speak("Aumentando o volume.")
-        keyboard.press_and_release("volume up")
-
-    elif "diminuir volume" in command:
-        speak("Diminuindo o volume.")
-        keyboard.press_and_release("volume down")
-
-    elif "sair" in command:
-        speak("Encerrando o assistente. Até logo!")
-        exit(0)
-
-    else:
-        speak("Desculpe, não entendi o comando.")
+   

@@ -73,6 +73,9 @@ actions:
   - action_ajustar_volume
   - action_buscar_previsao
   - action_validar_volume
+  - action_abrir_navegador
+  - action_desligar_computador
+  - action_reiniciar_computador
 
 forms:
   volume_form:
