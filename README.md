@@ -1,6 +1,6 @@
-# 🔊 Jarvis - Assistente Pessoal Inteligente
+# 🔊 OX - Assistente Pessoal Inteligente
 
-**Jarvis** é um assistente pessoal controlado por voz que executa comandos no seu computador, como abrir programas, controlar mídia e responder a comandos via interface web.
+**OX** é um assistente pessoal controlado por voz que executa comandos no seu computador, como abrir programas, controlar mídia e responder a comandos via interface web.
 
 ## 🚀 Funcionalidades
 - 🔍 **Reconhecimento de voz** (offline com Vosk)
@@ -13,8 +13,8 @@
 
 ### **1️⃣ Clonar o repositório**
 ```bash
-git clone https://github.com/prandini33/jarvis.git
-cd jarvis
+git clone https://github.com/prandini33/ox.git
+cd ox
 ```
 
 ### **2️⃣ Criar ambiente virtual**
@@ -59,7 +59,7 @@ python3 src/main.py
 ---
 
 ## 🌐 Interface Web
-O Jarvis pode ser controlado pelo navegador:
+O Ox pode ser controlado pelo navegador:
 ```bash
 http://localhost:5000
 ```
