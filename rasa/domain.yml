@@ -59,6 +59,15 @@ responses:
   utter_operacao_cancelada:
     - text: "Operação cancelada. Como posso ajudar agora?"
 
+  utter_goodbye:
+    - text: "Até logo! Se precisar de mais alguma coisa, estarei aqui."
+
+  utter_iamabot:
+    - text: "Eu sou um assistente virtual, como posso ajudar você?"
+
+  utter_exibir_previsao:
+    - text: "A previsão do tempo para {local} é {previsao}."
+
 actions:
   - action_abrir_terminal
   - action_ajustar_volume
