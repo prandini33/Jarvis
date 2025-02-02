@@ -32,12 +32,12 @@ pip install -r requirements.txt
 ### **4️⃣ Baixar o modelo Vosk**
 1. Acesse: [https://alphacephei.com/vosk/models](https://alphacephei.com/vosk/models)
 2. Baixe **vosk-model-small-pt**
-3. Extraia a pasta para `jarvis/model/`
+3. Extraia a pasta para `ox/model/`
 
 ---
 
 ## ▶️ Como Usar
-### **Executar o Jarvis**
+### **Executar o Ox**
 ```bash
 python3 src/main.py
 ```
@@ -52,7 +52,7 @@ python3 src/main.py
 | "Diminuir volume"    | Abaixa o volume do sistema |
 | "Sair"               | Fecha o assistente |
 
-### **Encerrar o Jarvis**
+### **Encerrar o Ox**
 - **Pressione `ESC`** no teclado.
 - **Ou diga "Sair"** duas vezes para ele se fechar automaticamente.
 
