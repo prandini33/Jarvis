@@ -1,6 +1,6 @@
-# 🔊 Jarvis - Assistente Pessoal Inteligente
+# 🔊 OX - Assistente Pessoal Inteligente
 
-**Jarvis** é um assistente pessoal controlado por voz que executa comandos no seu computador, como abrir programas, controlar mídia e responder a comandos via interface web.
+**OX** é um assistente pessoal controlado por voz que executa comandos no seu computador, como abrir programas, controlar mídia e responder a comandos via interface web.
 
 ## 🚀 Funcionalidades
 - 🔍 **Reconhecimento de voz** (offline com Vosk)
@@ -13,8 +13,8 @@
 
 ### **1️⃣ Clonar o repositório**
 ```bash
-git clone https://github.com/prandini33/jarvis.git
-cd jarvis
+git clone https://github.com/prandini33/ox.git
+cd ox
 ```
 
 ### **2️⃣ Criar ambiente virtual**
@@ -32,12 +32,12 @@ pip install -r requirements.txt
 ### **4️⃣ Baixar o modelo Vosk**
 1. Acesse: [https://alphacephei.com/vosk/models](https://alphacephei.com/vosk/models)
 2. Baixe **vosk-model-small-pt**
-3. Extraia a pasta para `jarvis/model/`
+3. Extraia a pasta para `ox/model/`
 
 ---
 
 ## ▶️ Como Usar
-### **Executar o Jarvis**
+### **Executar o Ox**
 ```bash
 python3 src/main.py
 ```
@@ -52,14 +52,14 @@ python3 src/main.py
 | "Diminuir volume"    | Abaixa o volume do sistema |
 | "Sair"               | Fecha o assistente |
 
-### **Encerrar o Jarvis**
+### **Encerrar o Ox**
 - **Pressione `ESC`** no teclado.
 - **Ou diga "Sair"** duas vezes para ele se fechar automaticamente.
 
 ---
 
 ## 🌐 Interface Web
-O Jarvis pode ser controlado pelo navegador:
+O Ox pode ser controlado pelo navegador:
 ```bash
 http://localhost:5000
 ```
