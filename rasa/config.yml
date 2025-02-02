@@ -1,0 +1,31 @@
+recipe: default.v1
+language: pt
+
+pipeline:
+- name: WhitespaceTokenizer
+- name: RegexFeaturizer
+- name: LexicalSyntacticFeaturizer
+- name: CountVectorsFeaturizer
+  analyzer: "char_wb"
+  min_ngram: 1
+  max_ngram: 4
+- name: DIETClassifier
+  epochs: 100
+  hidden_layers_sizes:
+    text: [256, 128]
+  transformer_size: 256
+- name: EntitySynonymMapper
+- name: ResponseSelector
+  epochs: 50
+
+policies:
+- name: MemoizationPolicy
+  max_history: 5
+- name: TEDPolicy
+  max_history: 10
+  epochs: 100
+  constrain_similarities: true
+- name: RulePolicy
+  core_fallback_threshold: 0.4
+  core_fallback_action_name: "action_default_fallback"
+assistant_id: 20250201-211144-raw-serval

@@ -1,0 +1,34 @@
+---
+version: "3.1"
+
+intents:
+  - saudacao
+  - perguntar_tempo
+
+entities:
+  - local
+
+slots:
+  local:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: local
+
+responses:
+  utter_saudacao:
+    - text: "Olá! Como posso ajudar hoje?"
+
+  utter_pedir_localizacao:
+    - text: "Para qual localização gostaria da previsão do tempo?"
+
+forms:
+  previsao_form:
+    required_slots:
+      local:
+        - type: from_entity
+          entity: local
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true

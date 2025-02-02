@@ -1,0 +1,80 @@
+---
+version: "3.1"
+
+intents:
+  - saudacao
+  - abrir_terminal
+  - ajustar_volume
+  - perguntar_tempo
+  - cancelar
+  - afirmar
+  - negar
+
+entities:
+  - local
+  - data
+  - volume
+
+slots:
+  local:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: local
+  
+  volume:
+    type: float
+    min_value: 0
+    max_value: 100
+    mappings:
+      - type: from_entity
+        entity: volume
+
+  volume_validado:
+    type: bool
+    mappings:
+      - type: from_entity
+        entity: volume_validado
+
+  data:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: data
+
+responses:
+  utter_saudacao:
+    - text: "Olá! Como posso ajudar hoje?"
+  
+  utter_confirmar_ajuste:
+    - text: "Confirmo que devo ajustar o volume para {volume}%?"
+  
+  utter_volume_ajustado:
+    - text: "Volume ajustado para {volume}% com sucesso!"
+  
+  utter_pedir_localizacao:
+    - text: "Para qual localização gostaria da previsão do tempo?"
+  
+  utter_operacao_cancelada:
+    - text: "Operação cancelada. Como posso ajudar agora?"
+
+actions:
+  - action_abrir_terminal
+  - action_ajustar_volume
+  - action_buscar_previsao
+  - action_validar_volume
+
+forms:
+  volume_form:
+    required_slots:
+      - volume
+
+  previsao_form:
+    required_slots:
+      - local
+      - data
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true

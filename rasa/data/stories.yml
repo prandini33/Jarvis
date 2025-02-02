@@ -1,0 +1,44 @@
+version: "3.1"
+
+stories:
+
+- story: fluxo ajuste de volume com confirmação
+  steps:
+  - intent: ajustar_volume
+    entities:
+    - volume: "75"
+  - action: action_validar_volume
+  - slot_was_set:
+    - volume_validado: true
+  - action: utter_confirmar_ajuste
+  - intent: afirmar
+  - action: action_ajustar_volume
+  - action: utter_volume_ajustado
+
+- story: fluxo previsão do tempo com entidade
+  steps:
+  - intent: perguntar_tempo
+    entities:
+    - local: "Rio de Janeiro"
+  - action: action_buscar_previsao
+  - action: utter_exibir_previsao
+
+- story: fluxo interrompido
+  steps:
+  - intent: perguntar_tempo
+  - action: utter_pedir_localizacao
+  - intent: cancelar
+  - action: utter_operacao_cancelada
+
+  # stories.yml
+- story: contexto prolongado
+  steps:
+  - intent: saudacao
+  - action: utter_saudacao
+  - intent: perguntar_tempo
+  - action: previsao_form
+  - active_loop: previsao_form
+  - slot_was_set:
+    - local: "São Paulo"
+    - data: "amanhã"
+  - action: utter_exibir_previsao

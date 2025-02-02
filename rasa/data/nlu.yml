@@ -1,0 +1,42 @@
+version: "3.1"
+
+nlu:
+- intent: saudacao
+  examples: |
+    - salve cachorro
+    - olá Ox
+    - bom dia picas
+    - tarde meu chapa
+    - e aí vida, como vai?
+
+- intent: abrir_terminal
+  examples: |
+    - abrir terminal
+    - iniciar console
+    - preciso de um terminal
+    - poderia abrir o prompt de comando?
+    - terminal por favor
+
+- intent: ajustar_volume
+  examples: |
+    - volume para 50%
+    - aumenta o volume
+    - diminui o som
+    - coloque no mudo
+    - volume máximo
+
+- intent: perguntar_tempo
+  examples: |
+    - qual a previsão do tempo?
+    - vai chover hoje?
+    - temperatura atual
+    - como está o clima em [São Paulo](local)?
+    - previsão para [amanhã](data)
+
+- intent: cancelar
+  examples: |
+    - cancela
+    - pare
+    - não quero mais
+    - esquece
+    - abortar operação
