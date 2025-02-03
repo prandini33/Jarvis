@@ -22,3 +22,22 @@ Thumbs.db  # Windows
 # Ignorar configurações do editor
 .vscode/
 .idea/
+
+
+# Ignorar o arquivo de configuração do banco de dados
+database.py
+.env
+config.json
+settings.yaml
+
+*.sql
+*.sqlite3
+*.db
+
+Pipfile
+Pipfile.lock
+poetry.lock
+
+build/
+dist/
+*.egg-info/

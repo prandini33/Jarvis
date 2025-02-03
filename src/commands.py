@@ -4,6 +4,7 @@ import webbrowser
 import keyboard  # Para controle de mídia
 from TTS.api import TTS
 import simpleaudio as sa
+from database import db, CommandHistory
 
 # Inicializa Coqui TTS
 tts = TTS(model_name="tts_models/pt/cv/vits", progress_bar=False)
@@ -18,47 +19,69 @@ def speak(text):
     play_obj = wave_obj.play()
     play_obj.wait_done()
 
-def execute_command(command):
-    """ Processa comandos reconhecidos e executa ações """
-    
-    if "navegador" in command:
-        speak("Abrindo o navegador.")
-        webbrowser.open("https://www.google.com")
+def log_command(user_id, command_id, input_type, success=True, error_message=None):
+    """ Registra um comando no banco de dados """
+    try:
+        new_entry = CommandHistory(
+            user_id=user_id,
+            command_id=command_id,
+            input_type=input_type,
+            success=success,
+            error_message=error_message
+        )
+        db.session.add(new_entry)
+        db.session.commit()
+    except Exception as e:
+        print(f"Erro ao registrar comando no banco: {e}")
 
-    elif "terminal" in command:
-        speak("Abrindo o terminal.")
-        subprocess.run(["gnome-terminal"])  # Linux (GNOME)
-        # subprocess.run(["x-terminal-emulator"])  # Alternativa para outras distros
+def execute_command(user_id, command_id, command, input_type="voz"):
+    """ Processa comandos reconhecidos, executa ações e registra no banco """
 
-    elif "bloco de notas" in command:
-        speak("Abrindo o bloco de notas.")
-        subprocess.run(["gedit"])  # Linux (Gedit)
-        # subprocess.run(["notepad.exe"])  # Windows
+    try:
+        if "navegador" in command:
+            speak("Abrindo o navegador.")
+            webbrowser.open("https://www.google.com")
 
-    elif "desligar" in command:
-        speak("Desligando o computador em 5 segundos.")
-        os.system("sleep 5 && shutdown -h now")  # Linux
-        # os.system("shutdown /s /t 5")  # Windows
+        elif "terminal" in command:
+            speak("Abrindo o terminal.")
+            subprocess.run(["gnome-terminal"])  # Linux (GNOME)
+        
+        elif "bloco de notas" in command:
+            speak("Abrindo o bloco de notas.")
+            subprocess.run(["gedit"])  # Linux (Gedit)
 
-    elif "reiniciar" in command:
-        speak("Reiniciando o computador em 5 segundos.")
-        os.system("sleep 5 && reboot")  # Linux
-        # os.system("shutdown /r /t 5")  # Windows
+        elif "desligar" in command:
+            speak("Desligando o computador em 5 segundos.")
+            os.system("sleep 5 && shutdown -h now")  # Linux
 
-    elif "tocar música" in command:
-        speak("Tocando música.")
-        keyboard.press_and_release("play/pause media")
+        elif "reiniciar" in command:
+            speak("Reiniciando o computador em 5 segundos.")
+            os.system("sleep 5 && reboot")  # Linux
 
-    elif "pausar música" in command:
-        speak("Pausando música.")
-        keyboard.press_and_release("play/pause media")
+        elif "tocar música" in command:
+            speak("Tocando música.")
+            keyboard.press_and_release("play/pause media")
 
-    elif "próxima música" in command:
-        speak("Pulando para a próxima música.")
-        keyboard.press_and_release("next track media")
+        elif "pausar música" in command:
+            speak("Pausando música.")
+            keyboard.press_and_release("play/pause media")
 
-    elif "música anterior" in command:
-        speak("Voltando para a música anterior.")
-        keyboard.press_and_release("previous track media")
+        elif "próxima música" in command:
+            speak("Pulando para a próxima música.")
+            keyboard.press_and_release("next track media")
 
-   
+        elif "música anterior" in command:
+            speak("Voltando para a música anterior.")
+            keyboard.press_and_release("previous track media")
+
+        else:
+            speak("Comando não reconhecido.")
+            log_command(user_id, command_id, input_type, success=False, error_message="Comando não reconhecido")
+            return
+
+        # Se o comando foi executado com sucesso, registramos no banco
+        log_command(user_id, command_id, input_type, success=True)
+
+    except Exception as e:
+        speak("Houve um erro ao executar o comando.")
+        log_command(user_id, command_id, input_type, success=False, error_message=str(e))
